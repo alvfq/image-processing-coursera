@@ -24,11 +24,9 @@
 % MAT-files required: none
 %
 % See also: OTHER_FUNCTION_NAME1,  OTHER_FUNCTION_NAME2
-% Author: FirstName FamilyName
-% Work address
-% email: 
-% Website: http://www.
-% May 2004; Last revision: 12-May-2004
+% Author: Alvaro F. Quilez
+% email: -
+% March 2019; Last revision: 6-March-2019
 %------------- BEGIN CODE --------------
 
 addpath('Pictures/') 
