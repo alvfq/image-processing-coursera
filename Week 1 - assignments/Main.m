@@ -30,7 +30,13 @@
 %------------- BEGIN CODE --------------
 
 addpath('Pictures/') 
-I = imread('wolf-1.jpg');
+I = imread('wolf-4.jpg');
 %imshow(I);
+
+[reduced, gray] = reduceIntensity(I, 64);
+
+%
+imshow([I, reduced]);
+title('original vs reduced');
 
 
