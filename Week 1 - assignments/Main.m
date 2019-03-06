@@ -31,3 +31,8 @@
 % May 2004; Last revision: 12-May-2004
 %------------- BEGIN CODE --------------
 
+addpath('Pictures/') 
+I = imread('wolf-1.jpg');
+%imshow(I);
+
+
