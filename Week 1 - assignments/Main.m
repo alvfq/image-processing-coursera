@@ -33,9 +33,9 @@ addpath('Pictures/')
 I = imread('wolf-4.jpg');
 %imshow(I);
 
+% Reduce intensity method
 [reduced, gray] = reduceIntensity(I, 64);
-
-%
+% Show results
 imshow([I, reduced]);
 title('original vs reduced');
 
