@@ -1,8 +1,9 @@
 %MAIN - Execute this file to run the code
 %
-% Other m-files required: reduceIntensity.m, averageNeighbors.m
+% Other m-files required: reduceIntensity.m, averageNeighbors.m,
+% averageRegion.m
 %
-% See also: reduceIntensity.m,  averageNeighbors.m
+% See also: reduceIntensity.m,  averageNeighbors.m, averageRegion.m
 % Author: Alvaro F. Quilez
 % email: alvaro.fquilez@gmail.com
 % March 2019; Last revision: 7-March-2019
@@ -12,12 +13,12 @@ addpath('Pictures/')
 I = imread('wolf-1.jpg');
 %imshow(I);
 
-disp('Options: 1. Reduce intensity 2. Spatial average 3. Rotation');
+disp('Options: 1. Reduce intensity 2. Spatial average 3. Rotation 4. Average a region');
 n = input('Enter a number: ');
 
 % Sanity check - display error
-if  n > 3 || n < 1
-    error('Error. \nInput must be >1 but <3')
+if  n > 4 || n < 1
+    error('Error. \nInput must be >1 but <4')
 else
     ;
 end
@@ -39,7 +40,7 @@ switch n
     if neigh <= 0
         error('Error. Input must be >= 1')
     end
-    
+   
     I = rgb2gray(I);
     averaged = averageNeighbors(neigh, I);
     %%% Show results
@@ -60,6 +61,21 @@ switch n
     rot = imrotate(I, angle, 'nearest', 'crop');
     imshow([I, rot]);
     title('original vs rotated');
+    
+    case 4
+    %% Average a region
+    region = input('Enter a region: ');
+    % Sanity check
+    if region <= 0
+        error('Error. Input must be >= 1')
+    end    
+    I = rgb2gray(I);
+    averageR = averageRegion(I, region);
+    %%% Show results
+    figure(1);
+    imshow([I, averageR]);
+    title('original vs averaged');
+    
 end
 	
 

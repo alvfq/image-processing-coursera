@@ -1,17 +1,14 @@
 function averaged = averageNeighbors(neigh, image)
-%AVERAGENEIGHBORS Replaces the pixel value by the average of a 3x3 area
-%around him
-% For now the function assumes the average is computed using a 3x3 area. We
-% simply iterate for each pixel and we assume the starting position is the
-% upper left corner of the image. In addition, we move to the right
-% (lateral displacement).
+%AVERAGENEIGHBORS Replaces the pixel value by the average of the specified
+%area around him.
+% We simply use a 2D convolution which can be considered a weighted average
+% (in this case we weight by 1/num_pixels^2)
 %
 % Inputs:   image: RGB image (3 channels)
 %           neigh: number of neigbors to average (assumes neigh by neigh)
 %
 % Outputs:  averaged: averaged image
 
-% Assume we move around the 3x3 area - maximum number of movements
 B = ones(neigh, neigh)/ (neigh^2);
 averaged = image;
 
