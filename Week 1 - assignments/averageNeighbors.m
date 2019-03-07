@@ -12,12 +12,12 @@ function averaged = averageNeighbors(neigh, image)
 % Outputs:  averaged: averaged image
 
 % Assume we move around the 3x3 area - maximum number of movements
-B = ones(3,3)/9;
+B = ones(neigh, neigh)/ (neigh^2);
 averaged = image;
 
 for c = 1:size(image, 3)
     % Convolution - "weighted" average
-    averaged(1:neigh, 1:neigh, c) = conv2(image(1:neigh, 1:neigh, c), B,'same');
+    averaged(:, :, c) = conv2(image(:, :, c), B,'same');
 end
 
 averaged = uint8(averaged);

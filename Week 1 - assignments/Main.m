@@ -1,47 +1,65 @@
-%FUNCTION_NAME - One line description of what the function or script performs (H1 line)
-%Optional file header info (to give more details about the function than in the H1 line)
-%Optional file header info (to give more details about the function than in the H1 line)
-%Optional file header info (to give more details about the function than in the H1 line)
+%MAIN - Execute this file to run the code
 %
-% Syntax:  [output1,output2] = function_name(input1,input2,input3)
+% Other m-files required: reduceIntensity.m, averageNeighbors.m
 %
-% Inputs:
-%    input1 - Description
-%    input2 - Description
-%    input3 - Description
-%
-% Outputs:
-%    output1 - Description
-%    output2 - Description
-%
-% Example: 
-%    Line 1 of example
-%    Line 2 of example
-%    Line 3 of example
-%
-% Other m-files required: none
-% Subfunctions: none
-% MAT-files required: none
-%
-% See also: OTHER_FUNCTION_NAME1,  OTHER_FUNCTION_NAME2
+% See also: reduceIntensity.m,  averageNeighbors.m
 % Author: Alvaro F. Quilez
-% email: -
-% March 2019; Last revision: 6-March-2019
+% email: alvaro.fquilez@gmail.com
+% March 2019; Last revision: 7-March-2019
 %------------- BEGIN CODE --------------
 
 addpath('Pictures/') 
-I = imread('wolf-4.jpg');
+I = imread('wolf-1.jpg');
 %imshow(I);
 
-%%% Reduce intensity method
-%[reduced, gray] = reduceIntensity(I, 64);
-%%% Show results
-%imshow([I, reduced]);
-%title('original vs reduced');
+disp('Options: 1. Reduce intensity 2. Spatial average 3. Rotation');
+n = input('Enter a number: ');
 
-I = rgb2gray(I);
-averaged = averageNeighbors(1000, I);
-%%% Show results
-imshow([I, averaged]);
-title('original vs averaged');
+% Sanity check - display error
+if  n > 3 || n < 1
+    error('Error. \nInput must be >1 but <3')
+else
+    ;
+end
+
+switch n
+    case 1        
+    %% Intensity reduction
+    levels = input('Enter number of levels: ');  
+    %%% Reduce intensity method
+    [reduced, gray] = reduceIntensity(I, levels);
+    %%% Show results
+    imshow([I, reduced]);
+    title('original vs reduced');
+    
+    case 2
+    %% Spatial average    
+    neigh = input('Enter a neighborhood: ');  
+    % Sanity check
+    if neigh <= 0
+        error('Error. Input must be >= 1')
+    end
+    
+    I = rgb2gray(I);
+    averaged = averageNeighbors(neigh, I);
+    %%% Show results
+    figure(1);
+    imshow([I, averaged]);
+    title('original vs averaged');
+
+    %%% Check
+    figure(2);
+    h = fspecial('average', [neigh, neigh]);
+    check = uint8(filter2(h, I));
+    imshow([I, check]);
+    title('Inbuilt matlab function original vs averaged');
+    
+    case 3
+    %% Rotation of the image
+    angle = input('Enter an angle: ');      
+    rot = imrotate(I, angle, 'nearest', 'crop');
+    imshow([I, rot]);
+    title('original vs rotated');
+end
+	
 
